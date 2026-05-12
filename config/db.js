@@ -27,21 +27,38 @@
 
 const mysql = require("mysql2");
 
+require("dotenv").config();
+
+
+
 const connection = mysql.createConnection({
-   host: "82.25.121.115",
-  user: "u205680228_guddu",
-  password: "MarketHub@Guddu62",
-  database: "u205680228_MarketHub",
+
+  host: process.env.DB_HOST,
+
+  user: process.env.DB_USER,
+
+  password: process.env.DB_PASSWORD,
+
+  database: process.env.DB_NAME,
+
 });
+
+
 
 connection.connect((error) => {
 
   if (error) {
+
     console.log(error);
+
   } else {
+
     console.log("MySQL Connected");
+
   }
 
 });
+
+
 
 module.exports = connection;
