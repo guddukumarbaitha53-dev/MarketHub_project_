@@ -1,29 +1,3 @@
-// const mysql = require("mysql2");
-
-// const pool = mysql.createPool({
- // host: "82.25.121.115",
- // user: "u205680228_guddu",
- // password: "MarketHub@Guddu62",
-  // database: "u205680228_MarketHub",
-
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
-
-
-// pool.getConnection((err, connection) => {
-//   if (err) {
-//     console.log("❌ DB Pool Error:", err);
-//     return;
-//   }
-//   console.log("✅ Database Connected (Pool)");
-
-//   connection.release(); 
-// });
-
-// module.exports = pool;
-
 
 const mysql = require("mysql2");
 
@@ -31,7 +5,7 @@ require("dotenv").config();
 
 
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
 
   host: process.env.DB_HOST,
 
@@ -41,24 +15,18 @@ const connection = mysql.createConnection({
 
   database: process.env.DB_NAME,
 
-});
+  waitForConnections: true,
 
+  connectionLimit: 10,
 
-
-connection.connect((error) => {
-
-  if (error) {
-
-    console.log(error);
-
-  } else {
-
-    console.log("MySQL Connected");
-
-  }
+  queueLimit: 0
 
 });
 
 
 
-module.exports = connection;
+console.log("MySQL Pool Connected");
+
+
+
+module.exports = pool.promise();
